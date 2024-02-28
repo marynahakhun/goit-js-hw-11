@@ -27,6 +27,7 @@ function onSubmit(event) {
                         position: 'center',
                     });
                     loader.style.display = "none";
+                    form.reset();
                 }, 1000);
                 
                  
