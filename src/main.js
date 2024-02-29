@@ -19,7 +19,6 @@ function onSubmit(event) {
     pixabayApi(value)
         .then(data => {
             if (data.hits.length === 0) {
-                setTimeout(() => {
                     iziToast.error({
                         message: 'Sorry, there are no images matching your search query. Please try again!',
                         messageColor: '#FFFFFF',
@@ -28,18 +27,26 @@ function onSubmit(event) {
                     });
                     loader.style.display = "none";
                     form.reset();
-                }, 1000);
+               
                 
                  
-            } else {
-                setTimeout(() => {
+            } else if(!value.trim()){
+                iziToast.error({
+                    message: 'Заповніть це поле!',
+                    messageColor: '#FFFFFF',
+                    backgroundColor: '#B51B1B',
+                    position: 'topRight',
+                });
+                loader.style.display = "none";
+            }
+            else {
                     const imagesHTML = renderImages(data);
                 gallery.innerHTML= imagesHTML;
                 loader.style.display = "none"; 
                 lightbox = initializeLightbox();
                 lightbox.refresh();
                 form.reset(); 
-                }, 1000);
+                
                
             }
         })
